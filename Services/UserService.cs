@@ -1,0 +1,22 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Testology_Dotnet.Domain.Models;
+using Testology_Dotnet.Domain.Services;
+using Testology_Dotnet.Domain.Repositories;
+
+namespace Testology_Dotnet.Services
+{
+    public class UserService : IUserService
+    {
+        private readonly IUserRepository _userRepository;
+
+        public UserService(IUserRepository userRepository)
+        {
+            this._userRepository = userRepository;
+        }
+        public async Task<IEnumerable<User>> ListAsync()
+        {
+            return await _userRepository.ListAsync();
+        }
+    }
+}

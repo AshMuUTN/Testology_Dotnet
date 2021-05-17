@@ -4,8 +4,8 @@ using Testology_Dotnet.Domain.Models;
 
 namespace Testology_Dotnet.Domain.Repositories
 {
-    public interface IUserRepository
+    public interface ITestRepository
     {
-         Task<IEnumerable<User>> ListAsync();
+         Task<IEnumerable<Test>> ListAsync();
     }
 }

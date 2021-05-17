@@ -10,6 +10,6 @@ namespace Testology_Dotnet.Domain.Models
         public string Description { get; set; }
         public DateTime Created_at { get; set; }
         public int UserId { get; set; }
-        public User User { get; set; }
+        //public User User { get; set; }
     }
 }

@@ -50,5 +50,13 @@ namespace Testology_Dotnet.Services
 
             return new CreateTestResponse(true, null, test);
         }
+
+        public async Task<MessageResponse> DeleteTestAsync(int testId)
+        {
+            await _testRepository.Delete(testId);
+            await _unitOfWork.CompleteAsync();
+
+            return new MessageResponse(true, "Test deleted successfully");
+        }
     }
 }

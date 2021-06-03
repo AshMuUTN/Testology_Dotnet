@@ -1,6 +1,7 @@
 using System;
 using Testology_Dotnet.Domain.Models.Auth;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace Testology_Dotnet.Domain.Models
 {
@@ -15,5 +16,7 @@ namespace Testology_Dotnet.Domain.Models
         public DateTime Created_at { get; set; }
         public int UserId { get; set; }
         public User User { get; set; }
+        public IEnumerable<Subtest> Subtests { get; set; }
+        public DateTime? DeletedAt { get; set; }
     }
 }

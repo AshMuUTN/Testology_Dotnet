@@ -9,5 +9,6 @@ namespace Testology_Dotnet.Domain.Services
     {
          Task<IEnumerable<Test>> ListAsync(string email);
          Task<CreateTestResponse> CreateOrUpdateTestAsync(Test test, string userEmail);
+         Task<MessageResponse> DeleteTestAsync(int testId);
     }
 }

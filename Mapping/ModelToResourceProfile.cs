@@ -14,6 +14,11 @@ namespace Testology_Dotnet.Mapping
         public ModelToResourceProfile()
         {
             CreateMap<Test, TestResource>();
+            CreateMap<Subtest, SubtestResource>();
+            CreateMap<Question, QuestionResource>();
+            CreateMap<Option, OptionResource>();
+            CreateMap<Image, ImageResource>();
+
             CreateMap<User, UserResource>()
                 .ForMember(u => u.Roles, opt => opt.MapFrom(u => u.UserRoles.Select(ur => ur.Role.Name)));
 

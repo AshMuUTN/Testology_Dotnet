@@ -22,6 +22,10 @@ using Testology_Dotnet.Security.Hashing;
 using Testology_Dotnet.Security.Tokens;
 using Testology_Dotnet.Extensions;
 using System;
+using Microsoft.AspNetCore.Authentication.Certificate;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace Testology_Dotnet
 {
@@ -35,6 +39,10 @@ namespace Testology_Dotnet
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(
+                CertificateAuthenticationDefaults.AuthenticationScheme)
+                .AddCertificate();
+                
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
@@ -47,6 +55,13 @@ namespace Testology_Dotnet
             services.AddControllers();
             services.AddDbContext<AppDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddCustomSwagger();
+            services.AddScoped<IUploadRepository, UploadRepository>();
+            services.AddScoped<IImageRepository, ImageRepository>();
+            services.AddScoped<IImageService, ImageService>();
+            services.AddScoped<IQuestionRepository, QuestionRepository>();
+            services.AddScoped<IQuestionService, QuestionService>();
+            services.AddScoped<ISubtestRepository, SubtestRepository>();
+            services.AddScoped<ISubtestService, SubtestService>();
             services.AddScoped<ITestRepository, TestRepository>();
             services.AddScoped<ITestService, TestService>();
             services.AddScoped<IUserRepository, UserRepository>();
@@ -95,6 +110,14 @@ namespace Testology_Dotnet
 
             app.UseRouting();
             app.UseCors("CorsPolicy");
+
+            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
+                RequestPath = new PathString("/Resources")
+            });
+            
             app.UseAuthentication();
 			app.UseAuthorization();
 

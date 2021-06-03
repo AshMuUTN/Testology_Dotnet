@@ -10,5 +10,6 @@ namespace Testology_Dotnet.Domain.Repositories
          void Add(Test test);
 
          void Update(Test test);
+         Task Delete(int testId);
     }
 }

@@ -6,10 +6,7 @@ using Testology_Dotnet.Domain.Models;
 using Testology_Dotnet.Domain.Services;
 using Testology_Dotnet.Resources;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using System.Security.Claims;
 using Testology_Dotnet.Resources.Auth;
-using System;
 
 namespace Testology_Dotnet.Controllers
 {
@@ -26,12 +23,11 @@ namespace Testology_Dotnet.Controllers
             _mapper = mapper;
         }
 
-        [Route("/api/Tests/current_user")]
-        [HttpPost]
+        [HttpGet]
         [Authorize(Roles = "Common")]
-        public async Task<IEnumerable<TestResource>> GetAllAsync([FromBody] UserResource user)
+        public async Task<IEnumerable<TestResource>> GetAllAsync([FromQuery] string userEmail)
         {
-            var tests = await _testService.ListAsync(user.Email);
+            var tests = await _testService.ListAsync(userEmail);
             var resources = _mapper.Map<IEnumerable<Test>, IEnumerable<TestResource>>(tests);
             return resources;
         }
@@ -55,6 +51,20 @@ namespace Testology_Dotnet.Controllers
 
             var testResource = _mapper.Map<Test, TestResource>(response.Test);
             return Ok(testResource);
+        }
+
+        [HttpDelete]
+        [Authorize(Roles = "Common")]
+        public async Task<IActionResult> DeleteTestAsync([FromQuery] int testId)
+        {
+            
+            var response = await _testService.DeleteTestAsync(testId);
+            if(!response.Success)
+            {
+                return BadRequest(response.Message);
+            }
+
+            return Ok();
         }
     }
 }

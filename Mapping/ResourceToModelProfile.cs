@@ -11,6 +11,13 @@ namespace Testology_Dotnet.Mapping
         public ResourceToModelProfile()
         {
             CreateMap<TestResource, Test>();
+            CreateMap<SubtestResource, Subtest>();
+            CreateMap<QuestionResourceNoOptions, Question>();
+            CreateMap<NumberQuestionResource, Question>();
+            CreateMap<TextQuestionResource, Question>();
+            CreateMap<NumberOptionResource, Option>();
+            CreateMap<TextOptionResource, Option>();
+            CreateMap<ImageResource, Image>();
             CreateMap<UserCredentialsResource, User>();
             CreateMap<UserUpdateResource, User>();
         }

@@ -18,5 +18,6 @@ namespace Testology_Dotnet.Domain.Models.Auth
         public string Password { get; set; }
 
         public ICollection<UserRole> UserRoles { get; set; } = new Collection<UserRole>();
+        public IEnumerable<Test> Tests { get; set; }
     }
 }

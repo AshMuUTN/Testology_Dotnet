@@ -72,6 +72,129 @@ namespace Testology_Dotnet.Migrations
                     b.ToTable("UserRoles");
                 });
 
+            modelBuilder.Entity("Testology_Dotnet.Domain.Models.Image", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Path")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Images");
+                });
+
+            modelBuilder.Entity("Testology_Dotnet.Domain.Models.Option", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsCorrect")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false);
+
+                    b.Property<float>("Number")
+                        .HasColumnType("real");
+
+                    b.Property<int>("QuestionId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuestionId");
+
+                    b.ToTable("Options");
+                });
+
+            modelBuilder.Entity("Testology_Dotnet.Domain.Models.Question", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int?>("ImageId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SubtestId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ImageId");
+
+                    b.HasIndex("SubtestId");
+
+                    b.ToTable("Questions");
+                });
+
+            modelBuilder.Entity("Testology_Dotnet.Domain.Models.Subtest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp without time zone")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(3000)
+                        .HasColumnType("character varying(3000)");
+
+                    b.Property<bool>("IsCalculable")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false);
+
+                    b.Property<bool>("IsScorable")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
+                    b.Property<int>("TestId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TestId");
+
+                    b.ToTable("Subtests");
+                });
+
             modelBuilder.Entity("Testology_Dotnet.Domain.Models.Test", b =>
                 {
                     b.Property<int>("Id")
@@ -84,6 +207,9 @@ namespace Testology_Dotnet.Migrations
                         .HasColumnType("timestamp without time zone")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("timestamp without time zone");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(3000)
@@ -91,13 +217,15 @@ namespace Testology_Dotnet.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("character varying(30)");
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Tests");
                 });
@@ -121,6 +249,56 @@ namespace Testology_Dotnet.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Testology_Dotnet.Domain.Models.Option", b =>
+                {
+                    b.HasOne("Testology_Dotnet.Domain.Models.Question", "Question")
+                        .WithMany("Options")
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Question");
+                });
+
+            modelBuilder.Entity("Testology_Dotnet.Domain.Models.Question", b =>
+                {
+                    b.HasOne("Testology_Dotnet.Domain.Models.Image", "Image")
+                        .WithMany("Questions")
+                        .HasForeignKey("ImageId");
+
+                    b.HasOne("Testology_Dotnet.Domain.Models.Subtest", "Subtest")
+                        .WithMany("Questions")
+                        .HasForeignKey("SubtestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Image");
+
+                    b.Navigation("Subtest");
+                });
+
+            modelBuilder.Entity("Testology_Dotnet.Domain.Models.Subtest", b =>
+                {
+                    b.HasOne("Testology_Dotnet.Domain.Models.Test", "Test")
+                        .WithMany("Subtests")
+                        .HasForeignKey("TestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Test");
+                });
+
+            modelBuilder.Entity("Testology_Dotnet.Domain.Models.Test", b =>
+                {
+                    b.HasOne("Testology_Dotnet.Domain.Models.Auth.User", "User")
+                        .WithMany("Tests")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Testology_Dotnet.Domain.Models.Auth.Role", b =>
                 {
                     b.Navigation("UsersRole");
@@ -128,7 +306,29 @@ namespace Testology_Dotnet.Migrations
 
             modelBuilder.Entity("Testology_Dotnet.Domain.Models.Auth.User", b =>
                 {
+                    b.Navigation("Tests");
+
                     b.Navigation("UserRoles");
+                });
+
+            modelBuilder.Entity("Testology_Dotnet.Domain.Models.Image", b =>
+                {
+                    b.Navigation("Questions");
+                });
+
+            modelBuilder.Entity("Testology_Dotnet.Domain.Models.Question", b =>
+                {
+                    b.Navigation("Options");
+                });
+
+            modelBuilder.Entity("Testology_Dotnet.Domain.Models.Subtest", b =>
+                {
+                    b.Navigation("Questions");
+                });
+
+            modelBuilder.Entity("Testology_Dotnet.Domain.Models.Test", b =>
+                {
+                    b.Navigation("Subtests");
                 });
 #pragma warning restore 612, 618
         }

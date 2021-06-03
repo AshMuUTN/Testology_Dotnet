@@ -47,3 +47,7 @@
 /Users/ashleymusick/repos/testology/Testology_Dotnet/bin/Debug/net5.0/Newtonsoft.Json.dll
 /Users/ashleymusick/repos/testology/Testology_Dotnet/bin/Debug/net5.0/SendGrid.dll
 /Users/ashleymusick/repos/testology/Testology_Dotnet/bin/Debug/net5.0/StarkbankEcdsa.dll
+/Users/ashleymusick/repos/testology/Testology_Dotnet/bin/Debug/net5.0/Microsoft.AspNetCore.Authentication.Certificate.dll
+/Users/ashleymusick/repos/testology/Testology_Dotnet/bin/Debug/net5.0/System.Drawing.Common.dll
+/Users/ashleymusick/repos/testology/Testology_Dotnet/bin/Debug/net5.0/runtimes/unix/lib/netcoreapp3.0/System.Drawing.Common.dll
+/Users/ashleymusick/repos/testology/Testology_Dotnet/bin/Debug/net5.0/runtimes/win/lib/netcoreapp3.0/System.Drawing.Common.dll

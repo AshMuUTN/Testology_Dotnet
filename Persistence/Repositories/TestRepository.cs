@@ -19,7 +19,7 @@ namespace Testology_Dotnet.Persistence.Repositories
 
         public async Task<IEnumerable<Test>> ListAsync(int UserId)
         {
-            return await _context.Tests.Where(t => t.UserId == UserId).ToListAsync();
+            return await _context.Tests.Where(t => t.UserId == UserId && t.DeletedAt == null).ToListAsync();
         }
 
         public void Add(Test test)
@@ -30,6 +30,15 @@ namespace Testology_Dotnet.Persistence.Repositories
         public void Update(Test test)
         {    
             _context.Tests.Update(test);
+        }
+
+        async Task ITestRepository.Delete(int testId)
+        {
+            var test = await _context.Tests.Where(t => t.Id == testId).FirstOrDefaultAsync();
+            test.DeletedAt = System.DateTime.Now;
+
+            _context.Tests.Attach(test);
+            _context.Entry(test).Property(t => t.DeletedAt).IsModified = true;
         }
     }
 }

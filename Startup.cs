@@ -26,6 +26,10 @@ using Microsoft.AspNetCore.Authentication.Certificate;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
 using Microsoft.AspNetCore.Http;
+using Testology_Dotnet.Domain.Repositories.Score;
+using Testology_Dotnet.Persistence.Repositories.Score;
+using Testology_Dotnet.Domain.Services.Score;
+using Testology_Dotnet.Services.Score;
 
 namespace Testology_Dotnet
 {
@@ -67,6 +71,19 @@ namespace Testology_Dotnet
             services.AddScoped<IUserRepository, UserRepository>();
 			services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+            //------Score -------//
+            services.AddScoped<IGroupRepository, GroupRepository>();
+            services.AddScoped<IGroupService, GroupService>();
+            services.AddScoped<IScoreFilterRepository, ScoreFilterRepository>();
+            services.AddScoped<IScoreFilterService, ScoreFilterService>();
+            services.AddScoped<IGroupScoreFilterRepository, GroupScoreFilterRepository>();
+            services.AddScoped<IGroupScoreFilterService, GroupScoreFilterService>();
+            services.AddScoped<ISubtestScoreFilterRepository, SubtestScoreFilterRepository>();
+            services.AddScoped<ISubtestScoreFilterService, SubtestScoreFilterService>();            
+            services.AddScoped<IQuestionScoreFilterRepository, QuestionScoreFilterRepository>();
+            services.AddScoped<IQuestionScoreFilterService, QuestionScoreFilterService>();
+
+            //-----Auth--------//
 			services.AddSingleton<IPasswordHasher, PasswordHasher>();
 			services.AddSingleton<ITokenHandler, Security.Tokens.TokenHandler>();
 

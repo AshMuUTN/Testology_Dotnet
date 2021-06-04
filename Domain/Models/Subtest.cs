@@ -2,6 +2,7 @@ using System;
 using Testology_Dotnet.Domain.Models.Auth;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using Testology_Dotnet.Domain.Models.Score;
 
 namespace Testology_Dotnet.Domain.Models
 {
@@ -20,5 +21,6 @@ namespace Testology_Dotnet.Domain.Models
         public Test Test { get; set; }
         public IEnumerable<Question> Questions { get; set; }
         public DateTime? DeletedAt { get; set; }
+        public IEnumerable<SubtestScoreFilter> SubtestScoreFilters { get; set; }
     }
 }

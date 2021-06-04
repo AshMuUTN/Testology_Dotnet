@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 using System;
+using Testology_Dotnet.Domain.Models.Score;
 
 namespace Testology_Dotnet.Domain.Models
 {
@@ -16,5 +17,8 @@ namespace Testology_Dotnet.Domain.Models
         public DateTime? DeletedAt { get; set; }
         public int? ImageId { get; set; }
         public Image Image { get; set; }
+        public int? GroupId { get; set; }
+        public Group Group { get; set; }
+        public IEnumerable<QuestionScoreFilter> QuestionScoreFilters { get; set; }
     }
 }

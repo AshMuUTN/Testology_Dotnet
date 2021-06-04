@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Testology_Dotnet.Domain.Models;
 using Testology_Dotnet.Domain.Models.Auth;
+using Testology_Dotnet.Domain.Models.Score;
 
 namespace Testology_Dotnet.Persistence.Contexts
 {
@@ -13,6 +14,12 @@ namespace Testology_Dotnet.Persistence.Contexts
         public DbSet<Question> Questions { get; set; }
         public DbSet<Option> Options { get; set; }
         public DbSet<Image> Images { get; set; }
+        //------------ SCORE attributes ----------------//
+        public DbSet<Group> Groups { get; set; }
+        public DbSet<GroupScoreFilter> GroupScoreFilters { get; set; }
+        public DbSet<QuestionScoreFilter> QuestionScoreFilters { get; set; }
+        public DbSet<SubtestScoreFilter> SubtestScoreFilters { get; set; }
+         public DbSet<ScoreFilter> ScoreFilters { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -57,6 +64,44 @@ namespace Testology_Dotnet.Persistence.Contexts
             builder.Entity<Image>().HasKey(p => p.Id);
             builder.Entity<Image>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<Image>().HasMany(p => p.Questions).WithOne(p => p.Image);
+
+            //--------------------SCORE ----------------------------------//
+            builder.Entity<Group>().ToTable("Groups");
+            builder.Entity<Group>().HasKey(p => p.Id);
+            builder.Entity<Group>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<Group>().HasMany(p => p.Questions).WithOne(p => p.Group);
+            builder.Entity<Group>().HasMany(p => p.GroupScoreFilters).WithOne(p => p.Group);
+
+            builder.Entity<GroupScoreFilter>().ToTable("GroupScoreFilters");
+            builder.Entity<GroupScoreFilter>().HasKey(p => p.Id);
+            builder.Entity<GroupScoreFilter>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<GroupScoreFilter>().Property(p => p.GroupId).IsRequired();
+            builder.Entity<GroupScoreFilter>().Property(p => p.ScoreFilterId).IsRequired();
+            builder.Entity<GroupScoreFilter>().HasOne(p => p.Group).WithMany(p => p.GroupScoreFilters);
+            builder.Entity<GroupScoreFilter>().HasOne(p => p.ScoreFilter).WithMany(p => p.GroupScoreFilters);
+
+            builder.Entity<QuestionScoreFilter>().ToTable("QuestionScoreFilters");
+            builder.Entity<QuestionScoreFilter>().HasKey(p => p.Id);
+            builder.Entity<QuestionScoreFilter>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<QuestionScoreFilter>().Property(p => p.QuestionId).IsRequired();
+            builder.Entity<QuestionScoreFilter>().Property(p => p.ScoreFilterId).IsRequired();
+            builder.Entity<QuestionScoreFilter>().HasOne(p => p.Question).WithMany(p => p.QuestionScoreFilters);
+            builder.Entity<QuestionScoreFilter>().HasOne(p => p.ScoreFilter).WithMany(p => p.QuestionScoreFilters);
+
+            builder.Entity<SubtestScoreFilter>().ToTable("SubtestScoreFilters");
+            builder.Entity<SubtestScoreFilter>().HasKey(p => p.Id);
+            builder.Entity<SubtestScoreFilter>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<SubtestScoreFilter>().Property(p => p.SubtestId).IsRequired();
+            builder.Entity<SubtestScoreFilter>().Property(p => p.ScoreFilterId).IsRequired();
+            builder.Entity<SubtestScoreFilter>().HasOne(p => p.Subtest).WithMany(p => p.SubtestScoreFilters);
+            builder.Entity<SubtestScoreFilter>().HasOne(p => p.ScoreFilter).WithMany(p => p.SubtestScoreFilters);
+
+            builder.Entity<ScoreFilter>().ToTable("ScoreFilters");
+            builder.Entity<ScoreFilter>().HasKey(p => p.Id);
+            builder.Entity<ScoreFilter>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<ScoreFilter>().HasMany(p => p.SubtestScoreFilters).WithOne(p => p.ScoreFilter);
+            builder.Entity<ScoreFilter>().HasMany(p => p.QuestionScoreFilters).WithOne(p => p.ScoreFilter);
+            builder.Entity<ScoreFilter>().HasMany(p => p.GroupScoreFilters).WithOne(p => p.ScoreFilter);
         }
     }
 }

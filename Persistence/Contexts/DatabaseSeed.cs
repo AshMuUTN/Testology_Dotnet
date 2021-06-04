@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Testology_Dotnet.Domain.Models.Auth;
+using Testology_Dotnet.Domain.Models.Score;
 using Testology_Dotnet.Domain.Security.Hashing;
 
 namespace Testology_Dotnet.Persistence.Contexts
@@ -49,6 +50,25 @@ namespace Testology_Dotnet.Persistence.Contexts
                 });
 
                 context.Users.AddRange(users);
+                context.SaveChanges();
+            }
+
+            if (context.ScoreFilters.Count() == 0)
+            {
+                var scoreFilters = new List<ScoreFilter>
+                {
+                    new ScoreFilter { Description = "arbitrary", IsForQuestions = true, IsForGroups = true, IsForSubtests = false },
+                    new ScoreFilter { Description = "count members", IsForQuestions = false, IsForGroups = true, IsForSubtests = false },
+                    new ScoreFilter { Description = "add value", IsForQuestions = true, IsForGroups = true, IsForSubtests = true },
+                    new ScoreFilter { Description = "add value of", IsForQuestions = true, IsForGroups = false, IsForSubtests = true },
+                    new ScoreFilter { Description = "multiply value", IsForQuestions = true, IsForGroups = true, IsForSubtests = true },
+                    new ScoreFilter { Description = "multiply value of", IsForQuestions = true, IsForGroups = false, IsForSubtests = true },
+                    new ScoreFilter { Description = "divide value", IsForQuestions = true, IsForGroups = true, IsForSubtests = true },
+                    new ScoreFilter { Description = "divide value of", IsForQuestions = true, IsForGroups = false, IsForSubtests = true },
+                };
+
+
+                context.ScoreFilters.AddRange(scoreFilters);
                 context.SaveChanges();
             }
         }

@@ -5,7 +5,8 @@ using Testology_Dotnet.Domain.Models.Auth;
 using Testology_Dotnet.Resources;
 using Testology_Dotnet.Resources.Auth;
 using Testology_Dotnet.Domain.Security.Tokens;
-
+using Testology_Dotnet.Domain.Models.Score;
+using Testology_Dotnet.Resources.Score;
 
 namespace Testology_Dotnet.Mapping
 {
@@ -18,6 +19,11 @@ namespace Testology_Dotnet.Mapping
             CreateMap<Question, QuestionResource>();
             CreateMap<Option, OptionResource>();
             CreateMap<Image, ImageResource>();
+            CreateMap<Group, GroupResource>();
+            CreateMap<ScoreFilter, ScoreFilterResource>();
+            CreateMap<GroupScoreFilter, GroupScoreFilterResource>();
+            CreateMap<SubtestScoreFilter, SubtestScoreFilterResource>();
+            CreateMap<QuestionScoreFilter, QuestionScoreFilterResource>();
 
             CreateMap<User, UserResource>()
                 .ForMember(u => u.Roles, opt => opt.MapFrom(u => u.UserRoles.Select(ur => ur.Role.Name)));

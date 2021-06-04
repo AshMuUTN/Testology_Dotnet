@@ -24,9 +24,9 @@ namespace Testology_Dotnet.Controllers.Score
 
         [HttpGet]
         [Authorize(Roles = "Common")]
-        public async Task<IEnumerable<QuestionScoreFilterResource>> GetAllAsync()
+        public async Task<IEnumerable<QuestionScoreFilterResource>> GetQuestionFiltersAsync([FromQuery] int questionId)
         {
-            var questionScoreFilters = await _questionScoreFilterService.ListAsync();
+            var questionScoreFilters = await _questionScoreFilterService.ListAsync(questionId);
             var resources = _mapper.Map<IEnumerable<QuestionScoreFilter>, IEnumerable<QuestionScoreFilterResource>>(questionScoreFilters);
             return resources;
         }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -28,14 +29,15 @@ namespace Testology_Dotnet.Persistence.Repositories.Score
             _context.Entry(questionScoreFilter).Property(t => t.DeletedAt).IsModified = true;
         }
 
-        public async Task<IEnumerable<QuestionScoreFilter>> ListAsync()
+        public async Task<IEnumerable<QuestionScoreFilter>> ListAsync(int questionId)
         {
-            return await _context.QuestionScoreFilters.ToListAsync();
+            return await _context.QuestionScoreFilters.Where(f => f.QuestionId == questionId && f.DeletedAt == null).ToListAsync();
         }
 
         public void Update(QuestionScoreFilter questionScoreFilter)
         {
             _context.QuestionScoreFilters.Update(questionScoreFilter);
         }
+
     }
 }

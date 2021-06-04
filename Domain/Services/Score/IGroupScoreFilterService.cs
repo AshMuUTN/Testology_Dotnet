@@ -8,7 +8,7 @@ namespace Testology_Dotnet.Domain.Services.Score
 {
     public interface IGroupScoreFilterService
     {
-        Task<IEnumerable<GroupScoreFilter>> ListAsync();
+        Task<IEnumerable<GroupScoreFilter>> ListAsync(int groupId);
         Task<CreateGroupScoreFilterResponse> CreateOrUpdateGroupScoreFilterAsync(GroupScoreFilter groupScoreFilter);
         Task<MessageResponse> DeleteGroupScoreFilterAsync(int groupScoreFilterId);
     }

@@ -41,11 +41,11 @@ namespace Testology_Dotnet.Services.Score
             return new MessageResponse(true, "Question Score Filter deleted successfully");
         }
 
-        public async Task<IEnumerable<QuestionScoreFilter>> ListAsync()
+        public async Task<IEnumerable<QuestionScoreFilter>> ListAsync(int questionId)
         {
             // TODO :: CHECK IF USER IS TOKEN USER 
             //https://stackoverflow.com/questions/46112258/how-do-i-get-current-user-in-net-core-web-api-from-jwt-token
-            return await _questionScoreFilterRepository.ListAsync();
+            return await _questionScoreFilterRepository.ListAsync(questionId);
         }
     }
 }

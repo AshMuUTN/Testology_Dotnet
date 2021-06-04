@@ -43,11 +43,11 @@ namespace Testology_Dotnet.Services.Score
             return new MessageResponse(true, "Group Score Filter deleted successfully");
         }
 
-        public async Task<IEnumerable<GroupScoreFilter>> ListAsync()
+        public async Task<IEnumerable<GroupScoreFilter>> ListAsync(int groupId)
         {
             // TODO :: CHECK IF Group score filter  BELONGS TO TOKEN USER 
             //https://stackoverflow.com/questions/46112258/how-do-i-get-current-user-in-net-core-web-api-from-jwt-token
-            return await _groupScoreFilterRepository.ListAsync();
+            return await _groupScoreFilterRepository.ListAsync(groupId);
         }
     }
 }

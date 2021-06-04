@@ -24,9 +24,9 @@ namespace Testology_Dotnet.Controllers.Score
 
         [HttpGet]
         [Authorize(Roles = "Common")]
-        public async Task<IEnumerable<SubtestScoreFilterResource>> GetAllAsync()
+        public async Task<IEnumerable<SubtestScoreFilterResource>> GetSubtestFiltersAsync([FromQuery] int subtestId)
         {
-            var subtestScoreFilters = await _subtestScoreFilterService.ListAsync();
+            var subtestScoreFilters = await _subtestScoreFilterService.ListAsync(subtestId);
             var resources = _mapper.Map<IEnumerable<SubtestScoreFilter>, IEnumerable<SubtestScoreFilterResource>>(subtestScoreFilters);
             return resources;
         }

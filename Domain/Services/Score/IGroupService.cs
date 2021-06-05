@@ -8,7 +8,7 @@ namespace Testology_Dotnet.Domain.Services.Score
 {
     public interface IGroupService
     {
-        Task<IEnumerable<Group>> ListAsync();
+        Task<IEnumerable<Group>> ListAsync(int subtestId);
         Task<CreateGroupResponse> CreateOrUpdateGroupAsync(Group group);
         Task<MessageResponse> DeleteGroupAsync(int groupId);
     }

@@ -28,9 +28,9 @@ namespace Testology_Dotnet.Persistence.Repositories.Score
             _context.Entry(group).Property(t => t.DeletedAt).IsModified = true;
         }
 
-        public async Task<IEnumerable<Group>> ListAsync()
+        public async Task<IEnumerable<Group>> ListAsync(int subtestId)
         {
-            return await _context.Groups.ToListAsync();
+            return await _context.Groups.Where(g => g.Questions.Any(q => q.SubtestId == subtestId)).ToListAsync();
         }
 
         public void Update(Group group)

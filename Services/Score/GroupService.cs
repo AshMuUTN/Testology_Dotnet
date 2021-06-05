@@ -42,11 +42,11 @@ namespace Testology_Dotnet.Services.Score
             return new MessageResponse(true, "Group deleted successfully");
         }
 
-        public async Task<IEnumerable<Group>> ListAsync()
+        public async Task<IEnumerable<Group>> ListAsync(int subtestId)
         {
             // TODO :: CHECK IF USER IS TOKEN USER 
             //https://stackoverflow.com/questions/46112258/how-do-i-get-current-user-in-net-core-web-api-from-jwt-token
-            return await _groupRepository.ListAsync();
+            return await _groupRepository.ListAsync(subtestId);
         }
     }
 }

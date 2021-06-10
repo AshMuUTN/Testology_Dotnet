@@ -22,5 +22,7 @@ namespace Testology_Dotnet.Domain.Models
         public IEnumerable<Question> Questions { get; set; }
         public DateTime? DeletedAt { get; set; }
         public IEnumerable<SubtestScoreFilter> SubtestScoreFilters { get; set; }
+        public IEnumerable<Group> Groups { get; set; }
+        public IEnumerable<Division> Divisions { get; set; }
     }
 }

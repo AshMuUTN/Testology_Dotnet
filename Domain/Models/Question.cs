@@ -17,8 +17,9 @@ namespace Testology_Dotnet.Domain.Models
         public DateTime? DeletedAt { get; set; }
         public int? ImageId { get; set; }
         public Image Image { get; set; }
-        public int? GroupId { get; set; }
-        public Group Group { get; set; }
+        public int? DivisionId { get; set; }
+        public Division Division { get; set; }
         public IEnumerable<QuestionScoreFilter> QuestionScoreFilters { get; set; }
+        public IEnumerable<Answer> Answers { get; set; }
     }
 }

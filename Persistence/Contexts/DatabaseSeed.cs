@@ -65,10 +65,27 @@ namespace Testology_Dotnet.Persistence.Contexts
                     new ScoreFilter { Description = "multiply value of", IsForQuestions = true, IsForGroups = false, IsForSubtests = true },
                     new ScoreFilter { Description = "divide value", IsForQuestions = true, IsForGroups = true, IsForSubtests = true },
                     new ScoreFilter { Description = "divide value of", IsForQuestions = true, IsForGroups = false, IsForSubtests = true },
+                    new ScoreFilter { Description = "range", IsForQuestions = true, IsForGroups = false, IsForSubtests = false },
+                    new ScoreFilter { Description = "self", IsForQuestions = true, IsForGroups = false, IsForSubtests = false },
                 };
 
 
                 context.ScoreFilters.AddRange(scoreFilters);
+                context.SaveChanges();
+            }
+
+            if (context.Groups.Count() == 0)
+            {
+                var groups = new List<Group>
+                {
+                    new Group { Description = "Correct" },
+                    new Group { Description = "Incorrect" },
+                    new Group { Description = "Present" },
+                    new Group { Description = "Absent" }
+                };
+
+
+                context.Groups.AddRange(groups);
                 context.SaveChanges();
             }
         }

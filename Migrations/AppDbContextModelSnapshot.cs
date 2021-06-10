@@ -19,6 +19,39 @@ namespace Testology_Dotnet.Migrations
                 .HasAnnotation("ProductVersion", "5.0.5")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+            modelBuilder.Entity("Testology_Dotnet.Domain.Models.Answer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<float>("NumberAnswer")
+                        .HasColumnType("real");
+
+                    b.Property<int?>("OptionId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ProtocolId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("QuestionId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OptionId");
+
+                    b.HasIndex("ProtocolId");
+
+                    b.HasIndex("QuestionId");
+
+                    b.ToTable("Answers");
+                });
+
             modelBuilder.Entity("Testology_Dotnet.Domain.Models.Auth.Role", b =>
                 {
                     b.Property<int>("Id")
@@ -120,6 +153,38 @@ namespace Testology_Dotnet.Migrations
                     b.ToTable("Options");
                 });
 
+            modelBuilder.Entity("Testology_Dotnet.Domain.Models.Protocol", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("Created_at")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
+                    b.Property<int>("TestId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TestId");
+
+                    b.ToTable("Protocols");
+                });
+
             modelBuilder.Entity("Testology_Dotnet.Domain.Models.Question", b =>
                 {
                     b.Property<int>("Id")
@@ -130,7 +195,7 @@ namespace Testology_Dotnet.Migrations
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int?>("GroupId")
+                    b.Property<int?>("DivisionId")
                         .HasColumnType("integer");
 
                     b.Property<int?>("ImageId")
@@ -146,13 +211,38 @@ namespace Testology_Dotnet.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GroupId");
+                    b.HasIndex("DivisionId");
 
                     b.HasIndex("ImageId");
 
                     b.HasIndex("SubtestId");
 
                     b.ToTable("Questions");
+                });
+
+            modelBuilder.Entity("Testology_Dotnet.Domain.Models.Score.Division", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
+                    b.Property<int>("SubtestId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SubtestId");
+
+                    b.ToTable("Divisions");
                 });
 
             modelBuilder.Entity("Testology_Dotnet.Domain.Models.Score.Group", b =>
@@ -170,7 +260,12 @@ namespace Testology_Dotnet.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
+                    b.Property<int?>("SubtestId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("SubtestId");
 
                     b.ToTable("Groups");
                 });
@@ -188,6 +283,9 @@ namespace Testology_Dotnet.Migrations
                     b.Property<int>("GroupId")
                         .HasColumnType("integer");
 
+                    b.Property<int>("OptionId")
+                        .HasColumnType("integer");
+
                     b.Property<int>("Rank")
                         .HasColumnType("integer");
 
@@ -200,6 +298,8 @@ namespace Testology_Dotnet.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("GroupId");
+
+                    b.HasIndex("OptionId");
 
                     b.HasIndex("ScoreFilterId");
 
@@ -216,6 +316,9 @@ namespace Testology_Dotnet.Migrations
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("timestamp without time zone");
 
+                    b.Property<int?>("From")
+                        .HasColumnType("integer");
+
                     b.Property<int>("QuestionId")
                         .HasColumnType("integer");
 
@@ -225,8 +328,14 @@ namespace Testology_Dotnet.Migrations
                     b.Property<int>("ScoreFilterId")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("To")
+                        .HasColumnType("integer");
+
                     b.Property<float>("Value")
                         .HasColumnType("real");
+
+                    b.Property<bool>("isForCorrectAnswers")
+                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
@@ -372,6 +481,31 @@ namespace Testology_Dotnet.Migrations
                     b.ToTable("Tests");
                 });
 
+            modelBuilder.Entity("Testology_Dotnet.Domain.Models.Answer", b =>
+                {
+                    b.HasOne("Testology_Dotnet.Domain.Models.Option", "Option")
+                        .WithMany("Answers")
+                        .HasForeignKey("OptionId");
+
+                    b.HasOne("Testology_Dotnet.Domain.Models.Protocol", "Protocol")
+                        .WithMany("Answers")
+                        .HasForeignKey("ProtocolId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Testology_Dotnet.Domain.Models.Question", "Question")
+                        .WithMany("Answers")
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Option");
+
+                    b.Navigation("Protocol");
+
+                    b.Navigation("Question");
+                });
+
             modelBuilder.Entity("Testology_Dotnet.Domain.Models.Auth.UserRole", b =>
                 {
                     b.HasOne("Testology_Dotnet.Domain.Models.Auth.Role", "Role")
@@ -402,11 +536,22 @@ namespace Testology_Dotnet.Migrations
                     b.Navigation("Question");
                 });
 
+            modelBuilder.Entity("Testology_Dotnet.Domain.Models.Protocol", b =>
+                {
+                    b.HasOne("Testology_Dotnet.Domain.Models.Test", "Test")
+                        .WithMany("Protocols")
+                        .HasForeignKey("TestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Test");
+                });
+
             modelBuilder.Entity("Testology_Dotnet.Domain.Models.Question", b =>
                 {
-                    b.HasOne("Testology_Dotnet.Domain.Models.Score.Group", "Group")
+                    b.HasOne("Testology_Dotnet.Domain.Models.Score.Division", "Division")
                         .WithMany("Questions")
-                        .HasForeignKey("GroupId");
+                        .HasForeignKey("DivisionId");
 
                     b.HasOne("Testology_Dotnet.Domain.Models.Image", "Image")
                         .WithMany("Questions")
@@ -418,9 +563,29 @@ namespace Testology_Dotnet.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Group");
+                    b.Navigation("Division");
 
                     b.Navigation("Image");
+
+                    b.Navigation("Subtest");
+                });
+
+            modelBuilder.Entity("Testology_Dotnet.Domain.Models.Score.Division", b =>
+                {
+                    b.HasOne("Testology_Dotnet.Domain.Models.Subtest", "Subtest")
+                        .WithMany("Divisions")
+                        .HasForeignKey("SubtestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Subtest");
+                });
+
+            modelBuilder.Entity("Testology_Dotnet.Domain.Models.Score.Group", b =>
+                {
+                    b.HasOne("Testology_Dotnet.Domain.Models.Subtest", "Subtest")
+                        .WithMany("Groups")
+                        .HasForeignKey("SubtestId");
 
                     b.Navigation("Subtest");
                 });
@@ -433,6 +598,12 @@ namespace Testology_Dotnet.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Testology_Dotnet.Domain.Models.Option", "Option")
+                        .WithMany("GroupScoreFilters")
+                        .HasForeignKey("OptionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Testology_Dotnet.Domain.Models.Score.ScoreFilter", "ScoreFilter")
                         .WithMany("GroupScoreFilters")
                         .HasForeignKey("ScoreFilterId")
@@ -440,6 +611,8 @@ namespace Testology_Dotnet.Migrations
                         .IsRequired();
 
                     b.Navigation("Group");
+
+                    b.Navigation("Option");
 
                     b.Navigation("ScoreFilter");
                 });
@@ -521,18 +694,35 @@ namespace Testology_Dotnet.Migrations
                     b.Navigation("Questions");
                 });
 
+            modelBuilder.Entity("Testology_Dotnet.Domain.Models.Option", b =>
+                {
+                    b.Navigation("Answers");
+
+                    b.Navigation("GroupScoreFilters");
+                });
+
+            modelBuilder.Entity("Testology_Dotnet.Domain.Models.Protocol", b =>
+                {
+                    b.Navigation("Answers");
+                });
+
             modelBuilder.Entity("Testology_Dotnet.Domain.Models.Question", b =>
                 {
+                    b.Navigation("Answers");
+
                     b.Navigation("Options");
 
                     b.Navigation("QuestionScoreFilters");
                 });
 
+            modelBuilder.Entity("Testology_Dotnet.Domain.Models.Score.Division", b =>
+                {
+                    b.Navigation("Questions");
+                });
+
             modelBuilder.Entity("Testology_Dotnet.Domain.Models.Score.Group", b =>
                 {
                     b.Navigation("GroupScoreFilters");
-
-                    b.Navigation("Questions");
                 });
 
             modelBuilder.Entity("Testology_Dotnet.Domain.Models.Score.ScoreFilter", b =>
@@ -546,6 +736,10 @@ namespace Testology_Dotnet.Migrations
 
             modelBuilder.Entity("Testology_Dotnet.Domain.Models.Subtest", b =>
                 {
+                    b.Navigation("Divisions");
+
+                    b.Navigation("Groups");
+
                     b.Navigation("Questions");
 
                     b.Navigation("SubtestScoreFilters");
@@ -553,6 +747,8 @@ namespace Testology_Dotnet.Migrations
 
             modelBuilder.Entity("Testology_Dotnet.Domain.Models.Test", b =>
                 {
+                    b.Navigation("Protocols");
+
                     b.Navigation("Subtests");
                 });
 #pragma warning restore 612, 618

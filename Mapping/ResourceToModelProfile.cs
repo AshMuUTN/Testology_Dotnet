@@ -20,6 +20,9 @@ namespace Testology_Dotnet.Mapping
             CreateMap<NumberOptionResource, Option>();
             CreateMap<TextOptionResource, Option>();
             CreateMap<ImageResource, Image>();
+            CreateMap<ProtocolResource, Protocol>();
+            CreateMap<AnswerResource, Answer>();
+            CreateMap<DivisionResource, Division>();
             CreateMap<GroupResource, Group>();
             CreateMap<ScoreFilterResource, ScoreFilter>();
             CreateMap<GroupScoreFilterResource, GroupScoreFilter>();

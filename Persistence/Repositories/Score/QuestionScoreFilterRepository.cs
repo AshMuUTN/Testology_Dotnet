@@ -22,7 +22,7 @@ namespace Testology_Dotnet.Persistence.Repositories.Score
 
         public async Task Delete(int questionScoreFilterId)
         {
-            var questionScoreFilter = await _context.QuestionScoreFilters.Where(t => t.Id == questionScoreFilterId).FirstOrDefaultAsync();
+            var questionScoreFilter = await _context.QuestionScoreFilters.Where(qsf => qsf.Id == questionScoreFilterId).FirstOrDefaultAsync();
             questionScoreFilter.DeletedAt = System.DateTime.Now;
 
             _context.QuestionScoreFilters.Attach(questionScoreFilter);

@@ -21,7 +21,7 @@ namespace Testology_Dotnet.Persistence.Repositories.Score
 
         public async Task Delete(int subtestScoreFilterId)
         {
-            var subtestScoreFilter = await _context.SubtestScoreFilters.Where(t => t.Id == subtestScoreFilterId).FirstOrDefaultAsync();
+            var subtestScoreFilter = await _context.SubtestScoreFilters.Where(ssf => ssf.Id == subtestScoreFilterId).FirstOrDefaultAsync();
             subtestScoreFilter.DeletedAt = System.DateTime.Now;
 
             _context.SubtestScoreFilters.Attach(subtestScoreFilter);

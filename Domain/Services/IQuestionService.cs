@@ -8,6 +8,7 @@ namespace Testology_Dotnet.Domain.Services
     public interface IQuestionService
     {
          Task<IEnumerable<Question>> ListAsync(int subtestId);
+         Task<IEnumerable<Question>> ListAnsweredAsync(int subtestId, int protocolId);
          Task<CreateQuestionResponse> CreateOrUpdateQuestionAsync(Question question);
          Task<MessageResponse> DeleteQuestionAsync(int questionId);
     }

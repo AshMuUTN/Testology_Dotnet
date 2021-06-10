@@ -19,6 +19,11 @@ namespace Testology_Dotnet.Mapping
             CreateMap<Question, QuestionResource>();
             CreateMap<Option, OptionResource>();
             CreateMap<Image, ImageResource>();
+            CreateMap<Protocol, ProtocolResource>();
+            CreateMap<Question, AnsweredQuestionResource>()
+                .ForMember(qr => qr.Answer, opt => opt.MapFrom(q => q.Answers.FirstOrDefault()));
+                
+            CreateMap<Division, DivisionResource>();
             CreateMap<Group, GroupResource>();
             CreateMap<ScoreFilter, ScoreFilterResource>();
             CreateMap<GroupScoreFilter, GroupScoreFilterResource>();

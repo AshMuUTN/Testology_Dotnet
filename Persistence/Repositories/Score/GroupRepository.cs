@@ -21,7 +21,7 @@ namespace Testology_Dotnet.Persistence.Repositories.Score
 
         public async Task Delete(int groupId)
         {
-            var group = await _context.Groups.Where(t => t.Id == groupId).FirstOrDefaultAsync();
+            var group = await _context.Groups.Where(g => g.Id == groupId).FirstOrDefaultAsync();
             group.DeletedAt = System.DateTime.Now;
 
             _context.Groups.Attach(group);
@@ -30,7 +30,7 @@ namespace Testology_Dotnet.Persistence.Repositories.Score
 
         public async Task<IEnumerable<Group>> ListAsync(int subtestId)
         {
-            return await _context.Groups.Where(g => g.Questions.Any(q => q.SubtestId == subtestId)).ToListAsync();
+            return await _context.Groups.Where(g => g.SubtestId == subtestId).ToListAsync();
         }
 
         public void Update(Group group)

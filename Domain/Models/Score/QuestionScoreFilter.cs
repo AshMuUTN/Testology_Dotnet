@@ -14,6 +14,9 @@ namespace Testology_Dotnet.Domain.Models.Score
         public int ScoreFilterId { get; set; }
         public ScoreFilter ScoreFilter { get; set; }
         public float Value { get; set; }
+        public int? To { get; set; }
+        public int? From { get; set; }
+        public bool isForCorrectAnswers { get; set; } = false;
         public DateTime? DeletedAt { get; set; }
     }
 }

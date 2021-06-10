@@ -19,6 +19,10 @@ namespace Testology_Dotnet.Domain.Models.Score
         [Display(Name="divide value")]
         DivideValue = 7,
         [Display(Name="divide value of")]
-        DivideValueOf = 8
+        DivideValueOf = 8,
+        [Display(Name="range")]
+        Range = 9,
+        [Display(Name="self")]
+        Self = 10
     }
 }

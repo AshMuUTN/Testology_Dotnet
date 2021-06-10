@@ -48,5 +48,12 @@ namespace Testology_Dotnet.Services
 
             return new MessageResponse(true, "Question deleted successfully");
         }
+
+        public async Task<IEnumerable<Question>> ListAnsweredAsync(int subtestId, int protocolId)
+        {
+            // TODO :: CHECK IF SUBTEST's TEST BELONGS TO TOKEN USER 
+            //https://stackoverflow.com/questions/46112258/how-do-i-get-current-user-in-net-core-web-api-from-jwt-token
+            return await _questionRepository.ListAnsweredAsync(subtestId, protocolId);
+        }
     }
 }

@@ -17,6 +17,7 @@ namespace Testology_Dotnet.Domain.Models
         public int UserId { get; set; }
         public User User { get; set; }
         public IEnumerable<Subtest> Subtests { get; set; }
+        public IEnumerable<Protocol> Protocols { get; set; }
         public DateTime? DeletedAt { get; set; }
     }
 }

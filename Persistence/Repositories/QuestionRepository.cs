@@ -41,5 +41,15 @@ namespace Testology_Dotnet.Persistence.Repositories
             _context.Questions.Attach(question);
             _context.Entry(question).Property(q => q.DeletedAt).IsModified = true;
         }
+
+        public async Task<IEnumerable<Question>> ListAnsweredAsync(int subtestId, int protocolId)
+        {
+            return await _context.Questions
+                .Where(s => s.SubtestId == subtestId && s.DeletedAt == null)
+                .Include(q => q.Options.Where(o => !o.Deleted))
+                .Include(q => q.Image)
+                .Include(q => q.Answers.Where(a => a.DeletedAt == null && a.ProtocolId == protocolId))
+                .ToListAsync();
+        }
     }
 }

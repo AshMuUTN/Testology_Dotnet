@@ -32,6 +32,15 @@ namespace Testology_Dotnet.Controllers
             return resources;
         }
 
+        [HttpGet]
+        [Authorize(Roles = "Common")]
+        public async Task<IEnumerable<AnsweredQuestionResource>> GetAnsweredQuestionsAsync([FromQuery] int subtestId, int protocolId)
+        {
+            var questions = await _questionService.ListAnsweredAsync(subtestId, protocolId);
+            var resources = _mapper.Map<IEnumerable<Question>, IEnumerable<AnsweredQuestionResource>>(questions);
+            return resources;
+        }
+
         [HttpPost]
         [Authorize(Roles = "Common")]
         public async Task<IActionResult> CreateOrUpdateQuestionAsync([FromBody] QuestionResourceNoOptions body)

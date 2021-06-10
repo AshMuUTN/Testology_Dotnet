@@ -11,5 +11,6 @@ namespace Testology_Dotnet.Resources.Score
         public string Description { get; set; }
         public IEnumerable<QuestionResource> Questions { get; set; }
         public IEnumerable<GroupScoreFilterResource> GroupScoreFilters { get; set; }
+        public int SubtestId { get; set; }
     }
 }

@@ -4,10 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Testology_Dotnet.Domain.Repositories;
@@ -72,6 +68,8 @@ namespace Testology_Dotnet
 			services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             //------Score -------//
+            services.AddScoped<IDivisionRepository, DivisionRepository>();
+            services.AddScoped<IDivisionService, DivisionService>();
             services.AddScoped<IGroupRepository, GroupRepository>();
             services.AddScoped<IGroupService, GroupService>();
             services.AddScoped<IScoreFilterRepository, ScoreFilterRepository>();

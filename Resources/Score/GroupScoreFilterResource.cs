@@ -12,5 +12,6 @@ namespace Testology_Dotnet.Resources.Score
         public int ScoreFilterId { get; set; }
         public ScoreFilterResource ScoreFilter { get; set; }
         public float Value { get; set; }
+        public int OptionId { get; set; }
     }
 }

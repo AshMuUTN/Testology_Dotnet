@@ -28,9 +28,9 @@ namespace Testology_Dotnet.Persistence.Repositories
             _context.Entry(protocol).Property(s => s.DeletedAt).IsModified = true;
         }
 
-        public Task<IEnumerable<Protocol>> ListAsync(int testId)
+        public async Task<IEnumerable<Protocol>> ListAsync(int testId)
         {
-            throw new System.NotImplementedException();
+            return await _context.Protocols.Where(p => p.TestId == testId && p.DeletedAt == null).ToListAsync();
         }
 
         public void Update(Protocol protocol)

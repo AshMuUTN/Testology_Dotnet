@@ -5,8 +5,8 @@ namespace Testology_Dotnet.Domain.Repositories
 {
     public interface IAnswerRepository
     {
-         void Add(Answer protocol);
-         void Update(Answer protocol);
-         Task Delete(int protocolId);
+         void Add(Answer answer);
+         void Update(Answer answer);
+         Task Delete(int answerId);
     }
 }

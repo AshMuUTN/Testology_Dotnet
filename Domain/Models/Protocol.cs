@@ -15,7 +15,7 @@ namespace Testology_Dotnet.Domain.Models
         [Required]
         public int TestId { get; set; }
         public Test Test { get; set; }
-        public DateTime Created_at { get; set; }
+        public DateTime CreatedAt { get; set; }
         public DateTime? DeletedAt { get; set; }
         public IEnumerable<Answer> Answers { get; set; }
         

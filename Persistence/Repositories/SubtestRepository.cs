@@ -32,7 +32,7 @@ namespace Testology_Dotnet.Persistence.Repositories
             _context.Subtests.Update(test);
         }
 
-        async Task ISubtestRepository.Delete(int subtestId)
+        public async Task Delete(int subtestId)
         {
             var subtest = await _context.Subtests.Where(s => s.Id == subtestId).FirstOrDefaultAsync();
             subtest.DeletedAt = System.DateTime.Now;

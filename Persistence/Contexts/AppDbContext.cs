@@ -79,6 +79,7 @@ namespace Testology_Dotnet.Persistence.Contexts
             builder.Entity<Protocol>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<Protocol>().HasMany(p => p.Answers).WithOne(p => p.Protocol);
             builder.Entity<Protocol>().HasOne(p => p.Test).WithMany(p => p.Protocols);
+            builder.Entity<Protocol>().Property(p => p.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
 
             builder.Entity<Answer>().ToTable("Answers");
             builder.Entity<Answer>().HasKey(p => p.Id);

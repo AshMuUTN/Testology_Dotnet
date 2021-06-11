@@ -55,6 +55,11 @@ namespace Testology_Dotnet
             services.AddControllers();
             services.AddDbContext<AppDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddCustomSwagger();
+            
+            services.AddScoped<IAnswerRepository, AnswerRepository>();
+            services.AddScoped<IAnswerService, AnswerService>();
+            services.AddScoped<IProtocolRepository, ProtocolRepository>();
+            services.AddScoped<IProtocolService, ProtocolService>();
             services.AddScoped<IUploadRepository, UploadRepository>();
             services.AddScoped<IImageRepository, ImageRepository>();
             services.AddScoped<IImageService, ImageService>();

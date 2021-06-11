@@ -13,7 +13,7 @@ namespace Testology_Dotnet.Resources
         public string Description { get; set; }
         [Required]
         public int TestId { get; set; }
-        public DateTime Created_at { get; set; }
+        public DateTime CreatedAt { get; set; }
         
     }
 }

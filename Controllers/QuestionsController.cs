@@ -33,6 +33,7 @@ namespace Testology_Dotnet.Controllers
         }
 
         [HttpGet]
+        [Route("/api/[controller]/answered")]
         [Authorize(Roles = "Common")]
         public async Task<IEnumerable<AnsweredQuestionResource>> GetAnsweredQuestionsAsync([FromQuery] int subtestId, int protocolId)
         {

@@ -1,2 +1,5 @@
 /bin/*
 /obj/*
+obj/Debug/net5.0/Testology_Dotnet.dll
+obj/Debug/net5.0/Testology_Dotnet.pdb
+obj/Debug/net5.0/ref/Testology_Dotnet.dll

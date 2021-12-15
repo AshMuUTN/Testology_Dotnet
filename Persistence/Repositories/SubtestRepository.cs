@@ -19,12 +19,15 @@ namespace Testology_Dotnet.Persistence.Repositories
 
         public async Task<IEnumerable<Subtest>> ListAsync(int testId)
         {
-            return await _context.Subtests.Where(s => s.TestId == testId && s.DeletedAt == null).ToListAsync();
+            return await _context.Subtests
+                .Where(s => s.TestId == testId && s.DeletedAt == null)
+                .OrderBy(s => s.CreatedAt)
+                .ToListAsync();
         }
 
-        public void Add(Subtest test)
+        public void Add(Subtest subtest)
         {    
-            _context.Subtests.Add(test);
+            _context.Subtests.Add(subtest);
         }
 
         public void Update(Subtest test)

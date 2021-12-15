@@ -10,6 +10,6 @@ namespace Testology_Dotnet.Resources
         public string Text { get; set; }
         public bool IsCorrect { get; set; } = false;
         public int QuestionId { get; set; }
-        public bool Delete { get; set; } 
+        public bool Deleted { get; set; } 
     }
 }

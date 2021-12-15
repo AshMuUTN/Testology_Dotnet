@@ -61,6 +61,7 @@ namespace Testology_Dotnet.Persistence.Contexts
             builder.Entity<Question>().HasOne(p => p.Image).WithMany(p => p.Questions);
             builder.Entity<Question>().HasMany(p => p.Answers).WithOne(p => p.Question);
 
+
             builder.Entity<Option>().ToTable("Options");
             builder.Entity<Option>().HasKey(p => p.Id);
             builder.Entity<Option>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
@@ -84,7 +85,7 @@ namespace Testology_Dotnet.Persistence.Contexts
             builder.Entity<Answer>().ToTable("Answers");
             builder.Entity<Answer>().HasKey(p => p.Id);
             builder.Entity<Answer>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
-            builder.Entity<Answer>().HasOne(p => p.Question).WithMany(p => p.Answers);
+            builder.Entity<Answer>().HasOne(p => p.Question).WithMany(p => p.Answers).HasForeignKey(p => p.QuestionId);
             builder.Entity<Answer>().HasOne(p => p.Option).WithMany(p => p.Answers);
             builder.Entity<Answer>().HasOne(p => p.Protocol).WithMany(p => p.Answers);
 

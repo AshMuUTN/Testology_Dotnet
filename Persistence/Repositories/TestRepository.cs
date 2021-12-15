@@ -19,7 +19,10 @@ namespace Testology_Dotnet.Persistence.Repositories
 
         public async Task<IEnumerable<Test>> ListAsync(int UserId)
         {
-            return await _context.Tests.Where(t => t.UserId == UserId && t.DeletedAt == null).ToListAsync();
+            return await _context.Tests
+                .Where(t => t.UserId == UserId && t.DeletedAt == null)
+                .OrderBy(t => t.Created_at)
+                .ToListAsync();
         }
 
         public void Add(Test test)

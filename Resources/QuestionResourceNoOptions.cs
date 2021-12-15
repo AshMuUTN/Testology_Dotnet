@@ -12,5 +12,6 @@ namespace Testology_Dotnet.Resources
         [Required]
         public int SubtestId { get; set; }
         public int? ImageId { get; set; }
+        public IEnumerable<OptionResource> options { get; set; } // Could happen if options being deletedß
     }
 }

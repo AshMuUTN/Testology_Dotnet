@@ -28,9 +28,10 @@ namespace Testology_Dotnet.Persistence.Repositories.Score
             _context.Entry(groupScoreFilter).Property(t => t.DeletedAt).IsModified = true;
         }
 
-        public async Task<IEnumerable<GroupScoreFilter>> ListAsync(int groupId)
+        public async Task<IEnumerable<GroupScoreFilter>> ListAsync(int subtestId)
         {
-            return await _context.GroupScoreFilters.Where(f => f.GroupId == groupId && f.DeletedAt == null).ToListAsync();
+            return await _context.GroupScoreFilters
+                .Where(f => f.Group.SubtestId == subtestId && f.DeletedAt == null).ToListAsync();
         }
 
         public void Update(GroupScoreFilter groupScoreFilter)

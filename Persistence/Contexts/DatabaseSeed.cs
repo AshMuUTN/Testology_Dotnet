@@ -66,7 +66,8 @@ namespace Testology_Dotnet.Persistence.Contexts
                     new ScoreFilter { Description = "divide value", IsForQuestions = true, IsForGroups = true, IsForSubtests = true },
                     new ScoreFilter { Description = "divide value of", IsForQuestions = true, IsForGroups = false, IsForSubtests = true },
                     new ScoreFilter { Description = "range", IsForQuestions = true, IsForGroups = false, IsForSubtests = false },
-                    new ScoreFilter { Description = "self", IsForQuestions = true, IsForGroups = false, IsForSubtests = false },
+                    new ScoreFilter { Description = "self", IsForQuestions = true, IsForGroups = false, IsForSubtests = false }, 
+                    new ScoreFilter { Description = "max", IsForQuestions = false, IsForGroups = false, IsForSubtests = true }
                 };
 
 

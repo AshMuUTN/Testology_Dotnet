@@ -18,6 +18,7 @@ namespace Testology_Dotnet.Mapping
             CreateMap<NumberQuestionResource, Question>();
             CreateMap<TextQuestionResource, Question>();
             CreateMap<NumberOptionResource, Option>();
+            CreateMap<OptionResource, Option>();
             CreateMap<TextOptionResource, Option>();
             CreateMap<ImageResource, Image>();
             CreateMap<ProtocolResource, Protocol>();

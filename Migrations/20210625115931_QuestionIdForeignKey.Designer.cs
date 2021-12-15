@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Testology_Dotnet.Persistence.Contexts;
@@ -9,9 +10,10 @@ using Testology_Dotnet.Persistence.Contexts;
 namespace Testology_Dotnet.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210625115931_QuestionIdForeignKey")]
+    partial class QuestionIdForeignKey
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,6 +43,9 @@ namespace Testology_Dotnet.Migrations
                     b.Property<int>("QuestionId")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("QuestionId1")
+                        .HasColumnType("integer");
+
                     b.Property<string>("TextAnswer")
                         .HasColumnType("text");
 
@@ -51,6 +56,9 @@ namespace Testology_Dotnet.Migrations
                     b.HasIndex("ProtocolId");
 
                     b.HasIndex("QuestionId");
+
+                    b.HasIndex("QuestionId1")
+                        .IsUnique();
 
                     b.ToTable("Answers");
                 });
@@ -507,6 +515,10 @@ namespace Testology_Dotnet.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Testology_Dotnet.Domain.Models.Question", null)
+                        .WithOne("Answer")
+                        .HasForeignKey("Testology_Dotnet.Domain.Models.Answer", "QuestionId1");
+
                     b.Navigation("Option");
 
                     b.Navigation("Protocol");
@@ -716,6 +728,8 @@ namespace Testology_Dotnet.Migrations
 
             modelBuilder.Entity("Testology_Dotnet.Domain.Models.Question", b =>
                 {
+                    b.Navigation("Answer");
+
                     b.Navigation("Answers");
 
                     b.Navigation("Options");

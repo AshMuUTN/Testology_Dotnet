@@ -10,7 +10,11 @@ namespace Testology_Dotnet.Domain.Models
         public int Id { get; set; }
         [Required]
         [StringLength(255)]
-        public string Text { get; set; }
+        // TODO investigate 'nullable' context and its implications in order to 
+        // confidently implement it here and let Text string be nullable, word 'none' is workaround
+        // that can be quickly replaced with nulls once nullable context has been createdß
+        // https://docs.microsoft.com/en-us/dotnet/csharp/nullable-references#nullable-contexts
+        public string Text { get; set; } = "none"; 
         public float Number { get; set; }
         public bool IsCorrect { get; set; } = false;
         public int QuestionId { get; set; }

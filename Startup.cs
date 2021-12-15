@@ -53,9 +53,16 @@ namespace Testology_Dotnet
             });
 
             services.AddControllers();
-            services.AddDbContext<AppDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddCustomSwagger();
+            services.AddDbContext<AppDbContext>(options => options.UseNpgsql(
+                Configuration.GetConnectionString("DefaultConnection")
+                // INCLUDE following line if preformance is noticed to be slow for getting answered questions
+                //, o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)
+            ));
             
+            services.AddCustomSwagger();
+
+            services.AddScoped<IReportRepository, ReportRepository>();
+            services.AddScoped<IReportService, ReportService>();
             services.AddScoped<IAnswerRepository, AnswerRepository>();
             services.AddScoped<IAnswerService, AnswerService>();
             services.AddScoped<IProtocolRepository, ProtocolRepository>();

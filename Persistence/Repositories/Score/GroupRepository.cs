@@ -30,7 +30,9 @@ namespace Testology_Dotnet.Persistence.Repositories.Score
 
         public async Task<IEnumerable<Group>> ListAsync(int subtestId)
         {
-            return await _context.Groups.Where(g => g.SubtestId == subtestId).ToListAsync();
+            return await _context.Groups
+                .Where(g => g.SubtestId == subtestId && g.DeletedAt == null)
+                .ToListAsync();
         }
 
         public void Update(Group group)

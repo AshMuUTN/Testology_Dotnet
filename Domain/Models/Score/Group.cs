@@ -11,6 +11,7 @@ namespace Testology_Dotnet.Domain.Models.Score
         [StringLength(255)]
         public string Description { get; set; }
         public IEnumerable<GroupScoreFilter> GroupScoreFilters { get; set; }
+        public float DefaultValue { get; set; }
         public int? SubtestId { get; set; }
         public Subtest Subtest { get; set; }
         public DateTime? DeletedAt { get; set; }

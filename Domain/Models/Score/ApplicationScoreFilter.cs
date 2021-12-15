@@ -23,6 +23,8 @@ namespace Testology_Dotnet.Domain.Models.Score
         [Display(Name="range")]
         Range = 9,
         [Display(Name="self")]
-        Self = 10
+        Self = 10,
+        [Display(Name="max")]
+        Max = 11
     }
 }

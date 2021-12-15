@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 using System;
 using Testology_Dotnet.Domain.Models.Score;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Testology_Dotnet.Domain.Models
 {
@@ -21,5 +22,7 @@ namespace Testology_Dotnet.Domain.Models
         public Division Division { get; set; }
         public IEnumerable<QuestionScoreFilter> QuestionScoreFilters { get; set; }
         public IEnumerable<Answer> Answers { get; set; }
+        [NotMapped]
+        public Answer Answer { get; set; }
     }
 }

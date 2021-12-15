@@ -10,6 +10,7 @@ namespace Testology_Dotnet.Resources
         [Required]
         public int QuestionId { get; set; }
         public float NumberAnswer { get; set; }
+        public string TextAnswer { get; set; }
         public int? OptionId { get; set; }
         public OptionResource Option { get; set; }
         

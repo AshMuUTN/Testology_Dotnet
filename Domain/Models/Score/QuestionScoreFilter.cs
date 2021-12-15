@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Testology_Dotnet.Domain.Models.Score
 {
-    public class QuestionScoreFilter
+    public class QuestionScoreFilter : IAppliedScoreFilter
     {
         public int Id { get; set; }
         public int Rank { get; set; }

@@ -31,7 +31,10 @@ namespace Testology_Dotnet.Persistence.Repositories.Score
 
         public async Task<IEnumerable<QuestionScoreFilter>> ListAsync(int questionId)
         {
-            return await _context.QuestionScoreFilters.Where(f => f.QuestionId == questionId && f.DeletedAt == null).ToListAsync();
+            return await _context.QuestionScoreFilters
+                .Where(f => f.QuestionId == questionId && f.DeletedAt == null)
+                .OrderBy(f => f.Rank)
+                .ToListAsync();
         }
 
         public void Update(QuestionScoreFilter questionScoreFilter)

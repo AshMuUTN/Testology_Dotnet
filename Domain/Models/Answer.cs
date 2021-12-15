@@ -11,6 +11,7 @@ namespace Testology_Dotnet.Domain.Models
         [Required]
         public int QuestionId { get; set; }
         public float NumberAnswer { get; set; }
+        public string TextAnswer { get; set; }
         public int? OptionId { get; set; }
         public Question Question { get; set; }
         public Protocol Protocol { get; set; }
